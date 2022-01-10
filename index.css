@@ -57,6 +57,7 @@ nav {
     display: flex;
     flex-wrap: wrap;
     width: 200px;
+    height: 200px;
     background-color: #1A374D;
     margin: auto;
     border-radius: 10px;
