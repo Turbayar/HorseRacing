@@ -48,10 +48,13 @@ function onClickStart() {
     let style = $playerLeft.style;
     let margin = parseInt(style.marginLeft);
     console.log("marginLeft", margin);
-    if (margin > 1360) {
-      alert("Player1 Won ");
-      location.reload();
-    }
+
+    setTimeout(() => {
+      if (margin > 1440) {
+        alert("Player1 Won ");
+        location.reload();
+      }
+    }, 2000);
   }
 
   if (activePlayer === 1) {
@@ -75,12 +78,10 @@ function onClickStart() {
     let styleRight = $playerRight.style;
     let marginLeft = parseInt(styleRight.marginLeft);
     console.log("marginRight", marginLeft);
-    if (marginLeft > 1360) {
+    if (marginLeft > 1440) {
       alert("Player2 Won ");
       location.reload();
     }
-    
-   
   }
   if (activePlayer === 1) {
     document.querySelector("#start").innerHTML = "Player 1";
