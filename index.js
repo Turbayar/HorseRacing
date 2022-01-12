@@ -3,6 +3,12 @@ const $roll2 = document.querySelector(".img2");
 const $roll3 = document.querySelector(".img3");
 const $roll4 = document.querySelector(".img4");
 
+
+let playerb1;
+let playerb2;
+let timer;
+let isDone = false
+
 let count = 0;
 let arr = [$roll1, $roll2, $roll3, $roll4];
 
@@ -22,67 +28,17 @@ let activePlayer = 0;
 let $playerLeft = document.querySelector(".playerLeft");
 let $playerRight = document.querySelector(".playerRight");
 let current = 0;
+let currentPlayer1 = 0;
 let currentPlayer2 = 0;
+
 function onClickStart() {
-  console.log(" --- >", activePlayer);
+  if (isDone === true ) return
+  console.log('darsan');
+  isDone=true;
+  // console.log(" --- >", activePlayer);
 
-  if (activePlayer === 0) {
-    console.log("palyer1");
+  uraldaan();
 
-    for (let i = 0; i < 4; i++) {
-      let randomNumber = Math.floor(Math.random() * 4) + 1;
-      $img1 = "images/shagai" + randomNumber + ".png";
-      arr[i].setAttribute("src", $img1);
-      if (randomNumber == 1) {
-        count++;
-        console.log("mori too  --- ", count);
-      }
-    }
-
-    if (count != 0) {
-      console.log("margin uguh  ", count);
-      current += count;
-      $playerLeft.style.marginLeft = `${80 * current}px`;
-      count = 0;
-    }
-    let style = $playerLeft.style;
-    let margin = parseInt(style.marginLeft);
-    console.log("marginLeft", margin);
-
-    setTimeout(() => {
-      if (margin > 1440) {
-        alert("Player1 Won ");
-        location.reload();
-      }
-    }, 2000);
-  }
-
-  if (activePlayer === 1) {
-    console.log("player2");
-
-    for (let i = 0; i < 4; i++) {
-      let randomNumber = Math.floor(Math.random() * 4) + 1;
-      $img1 = "images/shagai" + randomNumber + ".png";
-      arr[i].setAttribute("src", $img1);
-      if (randomNumber == 1) {
-        count++;
-        console.log("mori too  --- ", count);
-      }
-    }
-    if (count != 0) {
-      currentPlayer2 += count;
-      console.log("margin uguh  ", count);
-      $playerRight.style.marginLeft = `${80 * currentPlayer2}px`;
-      count = 0;
-    }
-    let styleRight = $playerRight.style;
-    let marginLeft = parseInt(styleRight.marginLeft);
-    console.log("marginRight", marginLeft);
-    if (marginLeft > 1440) {
-      alert("Player2 Won ");
-      location.reload();
-    }
-  }
   if (activePlayer === 1) {
     document.querySelector("#start").innerHTML = "Player 1";
     document.querySelector("#start").style.color = "green";
@@ -90,7 +46,70 @@ function onClickStart() {
   } else {
     document.querySelector("#start").innerHTML = "Player 2";
     document.querySelector("#start").style.color = "red";
-
     activePlayer = 1;
   }
 }
+
+function controller() {
+  for (let i = 0; i < 4; i++) {
+    let randomNumber = Math.floor(Math.random() * 4) + 1;
+    $img1 = "images/shagai" + randomNumber + ".png";
+    arr[i].setAttribute("src", $img1);
+    if (randomNumber == 1) {
+      count++;
+      // console.log("mori too  --- ", count);
+    }
+    // console.log(count);
+  }
+}
+function draw() {
+  for (let i = 0; i < 4; i++) {
+    // document.querySelector('#start') = disabled;
+    let randomNumber = Math.floor(Math.random() * 4) + 1;
+    $img1 = "images/shagai" + randomNumber + ".png";
+    arr[i].setAttribute("src", $img1);
+  }
+  timer = setTimeout(() => draw(), 100);
+}
+
+function uraldaan() {
+
+  // console.log("player2");
+  draw();
+
+  setTimeout(() => {
+    clearTimeout(timer);
+    controller();
+    if (count != 0) {
+      if (activePlayer === 0) {
+        currentPlayer1 += count;
+        $playerRight.style.marginLeft = `${80 * currentPlayer1}px`;
+      } else {
+        currentPlayer2 += count;
+        $playerLeft.style.marginLeft = `${80 * currentPlayer2}px`;
+      }
+      count = 0;
+    }
+
+    let style = $playerLeft.style;
+    let margin = parseInt(style.marginLeft);
+
+    let styleRight = $playerRight.style;
+    let marginLeft = parseInt(styleRight.marginLeft);
+    // console.log("marginRight", marginLeft);
+
+    setTimeout(() => {
+      if (marginLeft > 1440) {
+        alert("Player2 Won ");
+        location.reload();
+      }
+      if (margin > 1440) {
+        alert("Player1 Won ");
+        location.reload();
+      }
+    }, 1000);
+    isDone=false;
+  }, 1000);
+}
+
+function winning() {}
