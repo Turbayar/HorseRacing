@@ -3,6 +3,8 @@ const $roll2 = document.querySelector(".img2");
 const $roll3 = document.querySelector(".img3");
 const $roll4 = document.querySelector(".img4");
 
+let margin ;
+
 
 let playerb1;
 let playerb2;
@@ -57,6 +59,7 @@ function controller() {
     arr[i].setAttribute("src", $img1);
     if (randomNumber == 1) {
       count++;
+      firebase
       // console.log("mori too  --- ", count);
     }
     // console.log(count);
@@ -92,7 +95,7 @@ function uraldaan() {
     }
 
     let style = $playerLeft.style;
-    let margin = parseInt(style.marginLeft);
+    margin = parseInt(style.marginLeft);
 
     let styleRight = $playerRight.style;
     let marginLeft = parseInt(styleRight.marginLeft);
